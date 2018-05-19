@@ -13,7 +13,7 @@ const fs = require("fs");
 // --------------- local imports ---------------
 
 const cookieParser = require("cookie-parser");
-const User = require("./model/users");
+const Player = require("./model/player");
 const Game = require("./model/game");
 const database = require("./database.js");
 
@@ -34,25 +34,24 @@ app.get("/build/bundle.js", function(req, res) {
   res.sendFile(path.join(__dirname + "./../build/bundle.js"));
 });
 
-app.get("/game/:id", (req, res) => {
+app.get("/game/:gameID", Game.getGame, (req, res) => {
   const gameID = req.params.id;
-
-  res.status(404);
-  res.send(`No database configured for GAME! (requested ID: ${gameID})`);
+  res.json(res.locals.game);
 });
 
-app.post("/game", (req, res) => {
-  res.status(404);
-  res.send(`No database configured for GAME!`);
+app.post("/game", Game.createGame, (req, res) => {
+  res.json(res.locals.game);
 });
 
-// <TESTING>
-app.get("/game", Game.createGame, (req, res) => {
-  // res.status(404);
-  console.log("Back in game route…");
-  res.send("DB did something…");
+app.post("/player", jsonParser, Player.createPlayer, (req, res) => {
+  if (res.locals.player) {
+    // res.cookie("playerID", res.locals.player.player); // TODO
+    res.json(res.locals.user);
+  } else {
+    res.status(404);
+    res.send("No database configured for USER!");
+  }
 });
-// </TESTING>
 
 app.get("/quiz/:id", (req, res) => {
   const quizID = req.params.id;
@@ -70,25 +69,11 @@ app.get("/quiz/:id", (req, res) => {
   res.json(sampleQuiz);
 });
 
-app.post("/user", jsonParser, User.createUser, (req, res) => {
-  if (res.locals.user) {
-    res.setHeader(`set-cookie`, `session=${res.locals.user.id}`);
-    res.json(res.locals.user);
-  } else {
-    res.status(404);
-    res.send("No database configured for USER!");
-  }
-});
+// io.on("connection", function(socket) {
+//   socket.on("chat message", function(msg) {
+//   });
+// });
 
-io.on("connection", function(socket) {
-  console.log("a user connected");
-
-  socket.on("chat message", function(msg) {
-    console.log("message: " + msg);
-  });
-});
-
-console.log("connect to db");
 database.connect(err => {
   console.log("connected?");
   console.log(`err: ${err}`);
