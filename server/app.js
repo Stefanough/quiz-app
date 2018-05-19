@@ -44,7 +44,6 @@ app.get("/build/bundle.js", function(req, res) {
 });
 
 app.get("/game/:gameID", Game.getGame, (req, res) => {
-  const gameID = req.params.id;
   res.json(res.locals.game);
 });
 
@@ -53,13 +52,13 @@ app.post("/game", Game.createGame, (req, res) => {
 });
 
 app.post("/player", jsonParser, Player.createPlayer, (req, res) => {
-  if (res.locals.player) {
-    // res.cookie("playerID", res.locals.player.player); // TODO
-    res.json(res.locals.user);
-  } else {
-    res.status(404);
-    res.send("No database configured for USER!");
-  }
+  res.cookie("playerID", res.locals.player.playerid); // TODO
+  res.json(res.locals.player);
+});
+
+app.get("/player/:playerID", Player.getPlayer, (req, res) => {
+  const playerID = req.params.id;
+  res.json(res.locals.player);
 });
 
 app.get("/quiz/:id", (req, res) => {
