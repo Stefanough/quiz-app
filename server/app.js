@@ -10,7 +10,7 @@ const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 const fs = require("fs");
 
-// --------------- local imports ---------------
+// --------------- local imports -------------------
 
 const cookieParser = require("cookie-parser");
 const Player = require("./model/player");
@@ -24,7 +24,7 @@ const port = process.env.PORT || 3001;
 
 app.use(cookieParser());
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
@@ -33,12 +33,12 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
   // res.send("hello world!");
   res.sendFile(path.join(__dirname + "./../client/index.html"));
 });
 
-app.get("/build/bundle.js", function(req, res) {
+app.get("/build/bundle.js", function (req, res) {
   // res.send("hello world!");
   res.sendFile(path.join(__dirname + "./../build/bundle.js"));
 });
@@ -77,7 +77,7 @@ app.get("/quiz/:id", (req, res) => {
   res.json(sampleQuiz);
 });
 
-io.on("connection", function(client) {
+io.on("connection", function (client) {
   console.log("a user connected");
 
   client.on("startQuiz", quiz => {
@@ -87,7 +87,7 @@ io.on("connection", function(client) {
     client.broadcast.emit("quiz", sampleQuiz);
   });
 
-  client.on("chat message", function(msg) {
+  client.on("chat message", function (msg) {
     console.log("message: " + msg);
   });
 });
