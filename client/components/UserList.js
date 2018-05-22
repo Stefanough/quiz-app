@@ -8,11 +8,14 @@ class UserList extends Component {
     this.state = {
       usernames: [],
     }
-
-    subscribeToConnect((err, usernames) => this.setState({usernames}))
+    subscribeToConnect((usernames) => {
+      console.log('subscribeToConnect: ', usernames);
+      this.setState({usernames})
+    });
   }
 
   render() {
+    console.log('this.state: ', this.state);
     return (
       <div>{this.state.usernames}</div>
     )

@@ -99,11 +99,10 @@ class App extends Component {
   }
 
   // Trigger state change to show lobby after selecting a quiz
-  showLobbyFromSelect() {
-    
+  showLobbyFromSelect() {   
     const username = document.getElementById('select-field').value;
     let socket = io.connect('', {query: `username=${username}`});
-    // io.emit('', {query: `username=${username}`});
+    // socket.emit('connect', {query: `username=${username}`});
 
     if (this.state.gameID) {
       const copy = Object.assign({}, this.state);

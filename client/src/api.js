@@ -8,11 +8,14 @@ const socket = openSocket('http://localhost:3001');
 // }
 
 function subscribeToConnect(cb) {
-  socket.on('connect', usernames => {
+  socket.on('subscribe', usernames => {
     console.log('inside subscribetoConnect api.js');
-    console.log(usernames);
+    cb(usernames);
+    // console.log(usernames);
   });
-  socket.emit('subscribeToConnect', 'working');
+  // setInterval(() => {
+    socket.emit('subscribeToConnect', 'working');
+  // }, 1000);
 }
 
 export { subscribeToConnect };
