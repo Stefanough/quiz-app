@@ -5,6 +5,7 @@ module.exports = {
   mode: 'production',
   entry: './client/index.js',
   devServer: { publicPath: '/', contentBase: './views', hot: true, port: 8080 },
+  devtool: "eval-source-map",
   output: {
     path: path.resolve(__dirname, 'build/'),
     filename: 'bundle.js',
