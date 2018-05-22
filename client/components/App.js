@@ -19,7 +19,6 @@ class App extends Component {
     this.showSelectQuiz = this.showSelectQuiz.bind(this);
     this.showQuiz = this.showQuiz.bind(this);
     this.socketLaunch = this.socketLaunch.bind(this);
-    this.enterLobby = this.enterLobby.bind(this);
   }
 
   getInitialState() {
@@ -58,15 +57,15 @@ class App extends Component {
     });
   }
 
-  enterLobby() {
-    const username = document.getElementById('select-field').value;
-    let socket = io.connect('', {query: `username=${username}`});
+  // enterLobby() {
+  //   const username = document.getElementById('select-field').value;
+    // let socket = io.connect('', {query: `username=${username}`});
     
-    fetch(`${url}lobby`, {
-    }).then(response => response.json())
-    .then(response => console.log(response))
+    // fetch(`${url}lobby`, {
+    // }).then(response => response.json())
+    // .then(response => console.log(response))
 
-  }
+  // }
 
   showSelectQuiz() {
 
@@ -101,9 +100,10 @@ class App extends Component {
 
   // Trigger state change to show lobby after selecting a quiz
   showLobbyFromSelect() {
+    
     const username = document.getElementById('select-field').value;
     let socket = io.connect('', {query: `username=${username}`});
-    
+    // io.emit('', {query: `username=${username}`});
 
     if (this.state.gameID) {
       const copy = Object.assign({}, this.state);

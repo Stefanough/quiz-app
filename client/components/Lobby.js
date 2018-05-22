@@ -4,8 +4,6 @@ import React from 'react';
 
 const Lobby = (props) => {
   // Get other users from socket connection
-
-
   return (
     <div id="lobby">
       {/* <UserList /> */}
