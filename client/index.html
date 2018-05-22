@@ -17,13 +17,14 @@
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
-    $(function () {
-      var socket = io();
+    // $(function () {
+      // const socket = io.connect('', {query: 'username=Test&display=TestTest'});
 
-      setTimeout(function () {
-        socket.emit('chat message', "hello socket!");
-      }, 1000);
-    });
+      // socket.on('connect',() => {
+      //   console.log(socket.id);
+      // })
+
+    // });
   </script>
 
 </body>

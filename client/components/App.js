@@ -19,6 +19,7 @@ class App extends Component {
     this.showSelectQuiz = this.showSelectQuiz.bind(this);
     this.showQuiz = this.showQuiz.bind(this);
     this.socketLaunch = this.socketLaunch.bind(this);
+    this.enterLobby = this.enterLobby.bind(this);
   }
 
   getInitialState() {
@@ -57,8 +58,18 @@ class App extends Component {
     });
   }
 
-  showSelectQuiz() {
+  enterLobby() {
     const username = document.getElementById('select-field').value;
+    let socket = io.connect('', {query: `username=${username}`});
+    
+    fetch(`${url}lobby`, {
+    }).then(response => response.json())
+    .then(response => console.log(response))
+
+  }
+
+  showSelectQuiz() {
+
     // if (username) {
     //   fetch(`${url}user`, {
     //     body: JSON.stringify({ displayName: username }),
@@ -75,21 +86,25 @@ class App extends Component {
     //       this.setState(copy);
     //     });
     // }
-    fetch(`${url}quiz/0`, {
-      credentials: 'include',
-    })
-      .then(response => response.json())
-      .then((quiz) => {
-        console.log(quiz);
-        const copy = Object.assign({}, this.state);
-        copy.quiz = quiz;
-        this.setState(copy);
-        this.showQuiz();
-      });
+    // fetch(`${url}quiz/0`, {
+    //   credentials: 'include',
+    // })
+    //   .then(response => response.json())
+    //   .then((quiz) => {
+    //     console.log(quiz);
+    //     const copy = Object.assign({}, this.state);
+    //     copy.quiz = quiz;
+    //     this.setState(copy);
+    //     this.showQuiz();
+    //   });
   }
 
   // Trigger state change to show lobby after selecting a quiz
   showLobbyFromSelect() {
+    const username = document.getElementById('select-field').value;
+    let socket = io.connect('', {query: `username=${username}`});
+    
+
     if (this.state.gameID) {
       const copy = Object.assign({}, this.state);
       copy.renderLobby = true;
@@ -206,7 +221,7 @@ class App extends Component {
         return <SelectQuiz showLobbyFromSelect={this.showLobbyFromSelect} />;
       }
       // Render SelectUser component
-      return <SelectUser showSelectQuiz={this.showSelectQuiz} />;
+      return <SelectUser showLobbyFromSelect={this.showLobbyFromSelect} />;
     }
     return <span>Loading...</span>;
   }

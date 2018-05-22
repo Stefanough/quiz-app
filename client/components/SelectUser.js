@@ -15,9 +15,9 @@ const SelectUser = props => {
         <button
           className="btn btn-primary"
           type="button"
-          onClick={() => props.showSelectQuiz()}
+          onClick={() => props.showLobbyFromSelect()}
         >
-          Submit User
+          Enter Game Lobby
         </button>
       </div>
     </form>
