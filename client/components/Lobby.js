@@ -1,6 +1,6 @@
 import React from 'react';
 
-import UserList from './UserList.js';
+// import UserList from './UserList.js';
 
 const Lobby = (props) => {
   // Get other users from socket connection
@@ -8,7 +8,7 @@ const Lobby = (props) => {
 
   return (
     <div id="lobby">
-      <UserList />
+      {/* <UserList /> */}
       <button type="button" name="start-quiz" onClick={() => {props.showQuiz(); }}>Start Quiz</button>
     </div>
   );
