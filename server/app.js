@@ -123,6 +123,8 @@ io.on("connection", function(socket) {
 });
 
 
+
+
 database.connect(err => {
   console.log("connected?");
   console.log(`err: ${err}`);
