@@ -1,6 +1,6 @@
 import React from 'react';
 
-import UserList from './UserList';
+import UserList from './UserList.js';
 
 const Lobby = (props) => {
   // Get other users from socket connection
