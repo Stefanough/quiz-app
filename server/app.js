@@ -82,21 +82,36 @@ app.get("/quiz/:id", (req, res) => {
   res.json(sampleQuiz);
 });
 
-io.on("connection", function(client) {
+app.get('/lobby', (req, res) => {
+  console.log('in lobby get req');
+  res.send('get lobby!');
+});
 
-  console.log(io.engine.clientsCount)
-  console.log("a user connected: ", client.id, '\nsessionID: ', client.handshake.headers.cookie,'\n');
+io.on("connection", function(socket) {
+  socket.broadcast.emit("connect");
 
-  client.on("startQuiz", quiz => {
-    const sampleQuiz = JSON.parse(
-      fs.readFileSync("./server/model/quiz-demo.json", "utf-8")
-    );
-    client.broadcast.emit("quiz", sampleQuiz);
-  });
+  let clients = io.sockets.clients();
+  console.log(Object.values(clients.sockets).map(element => {
+    return element.handshake.query.username;
+  }));
+  // console.log(clients.sockets);
+  // socket.on("incomingUser", () => {
+  //   console.log(socket.handshake.query['username']);
+  // })
+
+  // console.log(io.engine.clientsCount)
+  // console.log("a user connected: ", socket.id, '\nsessionID: ', socket.handshake.headers.cookie,'\n');
+
+  // socket.on("startQuiz", quiz => {
+  //   const sampleQuiz = JSON.parse(
+  //     fs.readFileSync("./server/model/quiz-demo.json", "utf-8")
+  //   );
+  //   socket.broadcast.emit("quiz", sampleQuiz);
+  // });
  
-  client.on("chat message", function(msg) {
-    console.log("message: " + msg);
-  });
+  // socket.on("chat message", function(msg) {
+  //   console.log("message: " + msg);
+  // });
 });
 
 
