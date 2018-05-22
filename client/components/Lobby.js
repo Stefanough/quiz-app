@@ -8,7 +8,7 @@ const Lobby = (props) => {
 
   return (
     <div id="lobby">
-      {/* <UserList /> */}
+      <UserList />
       <button type="button" name="start-quiz" onClick={() => {props.showQuiz(); }}>Start Quiz</button>
     </div>
   );
