@@ -89,13 +89,13 @@ app.get('/lobby', (req, res) => {
 
 io.on("connection", function(socket) {
   socket.on('subscribeToConnect', (data) => {
-    console.log('client has data ', data);
-    let clients = io.sockets.clients();
-    let usernames = Object.values(clients.sockets).map(element => {
-      return element.handshake.query.username;
-    });
-    // console.log(usernames);
-    socket.broadcast.emit('connect', usernames);
+    setInterval(() => {
+      let clients = io.sockets.clients();
+      let usernames = Object.values(clients.sockets).map(element => {
+        return element.handshake.query.username;
+      });
+      socket.emit('subscribe', usernames);
+    }, 1000);
   })
 
   

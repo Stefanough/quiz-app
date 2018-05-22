@@ -9,7 +9,7 @@ class UserList extends Component {
       usernames: [],
     }
 
-    subscribeToConnect((err, usernames) => this.setState({usernames}))
+    subscribeToConnect((usernames) => this.setState({usernames}))
   }
 
   render() {
