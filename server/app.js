@@ -38,6 +38,11 @@ app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname + "./../client/index.html"));
 });
 
+app.get("/stylesheets/styles.css", function (req, res) {
+  // res.send("hello world!");
+  res.sendFile(path.join(__dirname + "./../client/stylesheets/styles.css"));
+});
+
 app.get("/build/bundle.js", function (req, res) {
   // res.send("hello world!");
   res.sendFile(path.join(__dirname + "./../build/bundle.js"));
@@ -78,7 +83,9 @@ app.get("/quiz/:id", (req, res) => {
 });
 
 io.on("connection", function (client) {
-  console.log("a user connected");
+
+  console.log(io.engine.clientsCount)
+  console.log("a user connected: ", client.id, '\nsessionID: ', client.handshake.headers.cookie, '\n');
 
   client.on("startQuiz", quiz => {
     const sampleQuiz = JSON.parse(
@@ -91,6 +98,7 @@ io.on("connection", function (client) {
     console.log("message: " + msg);
   });
 });
+
 
 database.connect(err => {
   console.log("connected?");

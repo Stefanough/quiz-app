@@ -1,7 +1,8 @@
 const path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: './client/index.js',
   devServer: { publicPath: '/', contentBase: './views', hot: true, port: 8080 },
   output: {
@@ -10,16 +11,8 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.js?$/,
-        include: [
-          path.resolve(__dirname, 'client/'),
-        ],
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015', 'react'],
-        },
-      },
+      {test: /\.js?$/, loader: 'babel-loader', query: {presets: ['es2015', 'react']}},
+      {test: /\.css?$/, use: ['style-loader','css-loader']},
     ],
   },
 };
