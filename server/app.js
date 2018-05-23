@@ -87,43 +87,18 @@ app.get('/lobby', (req, res) => {
   res.send('get lobby!');
 });
 
-io.on("connection", function(socket) {
-  socket.on('subscribeToConnect', (data) => {
+// listen for connection from clients
+io.on("connection", function(socket) { // when a connection event is recieved, invoke this function
+  socket.on('subscribeToConnect', (data) => { // when a 'subscribeToConnect' event is heard, invoce this function
     setInterval(() => {
       let clients = io.sockets.clients();
       let usernames = Object.values(clients.sockets).map(element => {
         return element.handshake.query.username;
       });
-      socket.emit('subscribe', usernames);
+      socket.emit('userBroadcast', usernames);
     }, 1000);
   })
-
-
-  
-
-
-  // console.log(clients.sockets);
-  // socket.on("incomingUser", () => {
-  //   console.log(socket.handshake.query['username']);
-  // })
-
-  // console.log(io.engine.clientsCount)
-  // console.log("a user connected: ", socket.id, '\nsessionID: ', socket.handshake.headers.cookie,'\n');
-
-  // socket.on("startQuiz", quiz => {
-  //   const sampleQuiz = JSON.parse(
-  //     fs.readFileSync("./server/model/quiz-demo.json", "utf-8")
-  //   );
-  //   socket.broadcast.emit("quiz", sampleQuiz);
-  // });
- 
-  // socket.on("chat message", function(msg) {
-  //   console.log("message: " + msg);
-  // });
 });
-
-
-
 
 database.connect(err => {
   console.log("connected?");

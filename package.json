@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server/app.js",
     "webpack": "webpack --mode development",
+    "webpack-watch": "webpack --watch",
     "start:dev": "webpack-dev-server --mode development --port 8082 --hot --inline --progress --colors --watch --content-base --config webpack.config.js"
   },
   "repository": {
