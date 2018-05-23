@@ -9,8 +9,8 @@ const socket = openSocket('http://localhost:3001');
 
 function subscribeToConnect(cb) {
   socket.on('userBroadcast', usernames => {
-      console.log('inside subscribeToConnect api.js');
-      cb(usernames);
+    console.log('inside subscribeToConnect api.js');
+    cb(usernames);
   })
   socket.emit('subscribeToConnect')
 }

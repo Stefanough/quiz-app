@@ -22,6 +22,7 @@ const port = process.env.PORT || 3001;
 
 // --------------- routers ---------------
 
+
 app.use(cookieParser());
 
 app.use(function (req, res, next) {
@@ -89,15 +90,16 @@ app.get('/lobby', (req, res) => {
 
 // listen for connection from clients
 io.on("connection", function(socket) { // when a connection event is recieved, invoke this function
-  socket.on('subscribeToConnect', (data) => { // when a 'subscribeToConnect' event is heard, invoce this function
+  socket.on('subscribeToConnect', (data) => { // when a 'subscribeToConnect' event is heard, invoke this function
+    console.log('data:', data);
     setInterval(() => {
       let clients = io.sockets.clients();
       let usernames = Object.values(clients.sockets).map(element => {
         return element.handshake.query.username;
       });
       socket.emit('userBroadcast', usernames);
-    }, 1000);
-  })
+    }, 100);
+  });
 });
 
 database.connect(err => {
