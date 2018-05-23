@@ -8,16 +8,25 @@ class UserList extends Component {
     this.state = {
       usernames: [],
     }
+
     subscribeToConnect((usernames) => {
-      console.log('subscribeToConnect: ', usernames);
       this.setState({usernames})
     });
+
   }
 
   render() {
-    console.log('this.state: ', this.state);
+    const userArr = [];
+    this.state.usernames.forEach((user, index) => {
+      userArr.push(<li key={index} className="userName">{user}</li>);
+    });
+    const number = this.state.usernames.filter(username => username !== null).length;
+
     return (
-      <div>{this.state.usernames}</div>
+      <div>
+        <div id="total">{number === 1 ? `${number} user on` : `${number} users on`}</div>
+        <ul id="user-list">{userArr}</ul>
+      </div>
     )
   }
 }

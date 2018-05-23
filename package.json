@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server/app.js",
-    "webpack": "webpack --mode development",
+    "webpack": "webpack --watch --mode development",
     "start:dev": "webpack-dev-server --mode development --port 8082 --hot --inline --progress --colors --watch --content-base --config webpack.config.js"
   },
   "repository": {
@@ -26,6 +26,7 @@
     "body-parser": "^1.18.3",
     "cookie-parse": "^0.4.0",
     "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
     "css-loader": "^0.28.11",
     "express": "^4.16.3",
     "http": "0.0.0",
