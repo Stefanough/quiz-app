@@ -1,3 +1,73 @@
+@import url('https://fonts.googleapis.com/css?family=Caveat');
+
 body {
   padding: 1em;
+}
+
+#main-title {
+  font-size: 100px;
+  font-family: 'Caveat', cursive;
+}
+
+/*------------ Enter name ------------ */
+
+#select-field {
+  font-family: 'Caveat', cursive;
+}
+
+#enter-lobby {
+  margin-top: 1em;
+  background-color: #eccd60;
+  border: 1px solid #e0b547;
+  color: #fff;
+}
+
+#enter-lobby:hover {
+  box-shadow: 3px 3px #e0b547;
+}
+
+/*---------- Lobby -----------*/
+
+#lobby {
+    background: none;
+    color: black;
+    background-image: url(https://d1yn1kh78jj1rr.cloudfront.net/image/thumbnail/rDtN98Qoishumwih/blan…creativity-loose-on-this-tiles-seamlessly-as-a-pattern_BYgYIKCBs_thumb.jpg);
+    background-repeat-x: no-repeat;
+    border-radius: 5px;
+}
+.user {
+  background: rgb(215, 240, 255);
+}
+
+#user-list {
+  background-color: #f6e68a;
+  float: left;
+  width: 45%;
+  height: 200px;
+  overflow: scroll;
+  padding-left: 10px;
+}
+
+#user-list li {
+  list-style-type: none;
+}
+
+#total {
+  display: block;
+  text-align: left;
+}
+
+#game-description {
+  float: left;
+  width: 45%;
+  background: #eee;
+  height: 300px;
+  padding: 0.5em;
+  margin: 0 2%;
+  font-family: 'Caveat', cursive;
+  display: block;
+}
+
+#start-quiz {
+  display: block;
 }

@@ -9,12 +9,24 @@ class UserList extends Component {
       usernames: [],
     }
 
-    subscribeToConnect((usernames) => this.setState({usernames}))
+    subscribeToConnect((usernames) => {
+      this.setState({usernames})
+    });
+
   }
 
   render() {
+    const userArr = [];
+    this.state.usernames.forEach((user, index) => {
+      userArr.push(<li key={index} className="userName">{user}</li>);
+    });
+    const number = this.state.usernames.filter(username => username !== null).length;
+
     return (
-      <div>{this.state.usernames}</div>
+      <div>
+        <div id="total">{number === 1 ? `${number} user on` : `${number} users on`}</div>
+        <ul id="user-list">{userArr}</ul>
+      </div>
     )
   }
 }

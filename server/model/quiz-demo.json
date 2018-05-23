@@ -1,12 +1,12 @@
 [
   {
-    "query": "What question number is this?",
-    "answers": ["1", "2", "3", "4"],
+    "query": "What is your favorite Wilbur activity?",
+    "answers": ["Giving him belly rubs", "Breathing heavily with him during tech talks", "Gazing into his eyes", "Sleeping in the van"],
     "correct": 0
   },
   {
-    "query": "Does the quiz correctly handle displaying more than 4 answers?",
-    "answers": ["no", "no", "no", "no", "yes"],
+    "query": "I often talk to my Lyft or Uber driver.",
+    "answers": ["Always", "Sometimes", "Rarely", "Never"],
     "correct": 4
   },
   {

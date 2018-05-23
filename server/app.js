@@ -19,13 +19,15 @@ const database = require("./database.js");
 
 // local variables ---------------
 const port = process.env.PORT || 3001;
+const allowedOrigins = ['http://localhost:3001', 'http://ab8a00cd.ngrok.io:3001']
 
 // --------------- routers ---------------
 
+
 app.use(cookieParser());
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*, http://ab8a00cd.ngrok.io");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
@@ -33,18 +35,15 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get("/", function (req, res) {
-  // res.send("hello world!");
+app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname + "./../client/index.html"));
 });
 
-app.get("/stylesheets/styles.css", function (req, res) {
-  // res.send("hello world!");
+app.get("/stylesheets/styles.css", function(req, res) {
   res.sendFile(path.join(__dirname + "./../client/stylesheets/styles.css"));
 });
 
-app.get("/build/bundle.js", function (req, res) {
-  // res.send("hello world!");
+app.get("/build/bundle.js", function(req, res) {
   res.sendFile(path.join(__dirname + "./../build/bundle.js"));
 });
 
@@ -82,22 +81,46 @@ app.get("/quiz/:id", (req, res) => {
   res.json(sampleQuiz);
 });
 
-app.get('/lobby', (req, res) => {
-  console.log('in lobby get req');
-  res.send('get lobby!');
-});
+io.on("connection", function(socket) {
+  
+  socket.on('subscribeToConnect', (data) => {
+    setInterval(() => {
+    let clients = io.sockets.clients();
+    let usernames = Object.values(clients.sockets).map(element => {
+      return element.handshake.query.username;
+    });
+      socket.emit('subscribe', usernames);
+    }, 1000);
+  });
 
-// listen for connection from clients
-io.on("connection", function(socket) { // when a connection event is recieved, invoke this function
-  socket.on('subscribeToConnect', (data) => { // when a 'subscribeToConnect' event is heard, invoce this function
+  socket.on('disconnect', () => {
     setInterval(() => {
       let clients = io.sockets.clients();
       let usernames = Object.values(clients.sockets).map(element => {
         return element.handshake.query.username;
       });
-      socket.emit('userBroadcast', usernames);
-    }, 1000);
-  })
+        socket.emit('user-left', usernames);
+      }, 1000);
+  });
+
+  // console.log(clients.sockets);
+  // socket.on("incomingUser", () => {
+  //   console.log(socket.handshake.query['username']);
+  // })
+
+  // console.log(io.engine.clientsCount)
+  // console.log("a user connected: ", socket.id, '\nsessionID: ', socket.handshake.headers.cookie,'\n');
+
+  // socket.on("startQuiz", quiz => {
+  //   const sampleQuiz = JSON.parse(
+  //     fs.readFileSync("./server/model/quiz-demo.json", "utf-8")
+  //   );
+  //   socket.broadcast.emit("quiz", sampleQuiz);
+  // });
+ 
+  // socket.on("chat message", function(msg) {
+  //   console.log("message: " + msg);
+  // });
 });
 
 database.connect(err => {
